@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloom Valley Nursery - Gallery</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <img src="images/logo.png" alt="Bloom Valley Nursery Logo" class="logo">
+        <h1 class="header-title">Bloom Valley Nursery</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="community.html">Community</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <button id="view-cart">View Cart</button>
+
+        <!-- Shopping Cart Modal -->
+        <div id="cart-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Your Cart</h2>
+                <div id="cart-items"></div>
+                <button id="clear-cart">Clear Cart</button>
+                <button id="process-order">Process Order</button>
+            </div>
+        </div>
+
+        <!-- Product Gallery -->
+        <section class="product-gallery">
+            <div class="gallery-grid">
+                <!-- Row 1 -->
+                <article class="product-card">
+                    <img src="images/apple-tree.png" alt="Apple Tree">
+                    <h3>Apple Tree</h3>
+                    <p>Mature fruit tree, perfect for your home orchard.</p>
+                    <button class="add-to-cart" data-item="Apple Tree">Add to Cart</button>
+                </article>
+
+                <article class="product-card">
+                    <img src="images/birch-tree.png" alt="Birch Tree">
+                    <h3>Birch Tree</h3>
+                    <p>Elegant ornamental tree with distinctive bark.</p>
+                    <button class="add-to-cart" data-item="Birch Tree">Add to Cart</button>
+                </article>
+
+                <article class="product-card">
+                    <img src="images/maple-tree.png" alt="Maple Tree">
+                    <h3>Maple Tree</h3>
+                    <p>Beautiful shade tree with stunning fall colors.</p>
+                    <button class="add-to-cart" data-item="Maple Tree">Add to Cart</button>
+                </article>
+
+                <!-- Additional product entries follow same pattern -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="newsletter">
+            <h3>Sign up for our Newsletter</h3>
+            <input type="email" placeholder="Your email">
+            <button type="submit">Subscribe</button>
+        </div>
+        <div class="social-links">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="community.html">Community</a></li>
+            </ul>
+        </nav>
+    </footer>
+
+    <script>
+        // Shopping cart functionality
+        let cartItems = [];
+
+        // Add to cart
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function () {
+                const item = this.getAttribute('data-item');
+                cartItems.push(item);
+                sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
+                alert('Item added to cart!');
+            });
+        });
+
+        // View cart modal
+        const modal = document.getElementById('cart-modal');
+        const viewCartBtn = document.getElementById('view-cart');
+        const closeBtn = document.querySelector('.close');
+
+        viewCartBtn.onclick = function () {
+            displayCartItems();
+            modal.style.display = 'block';
+        }
+
+        closeBtn.onclick = function () {
+            modal.style.display = 'none';
+        }
+
+        // Display cart items
+        function displayCartItems() {
+            const cartDisplay = document.getElementById('cart-items');
+            cartDisplay.innerHTML = '';
+            cartItems.forEach(item => {
+                const itemElement = document.createElement('p');
+                itemElement.textContent = item;
+                cartDisplay.appendChild(itemElement);
+            });
+        }
+
+        // Clear cart
+        document.getElementById('clear-cart').onclick = function () {
+            cartItems = [];
+            sessionStorage.removeItem('cartItems');
+            displayCartItems();
+            alert('Cart is cleared!');
+        }
+
+        // Process order
+        document.getElementById('process-order').onclick = function () {
+            cartItems = [];
+            sessionStorage.removeItem('cartItems');
+            modal.style.display = 'none';
+            alert('Thank you for your order!');
+        }
+
+        // Load cart from session storage
+        window.onload = function () {
+            const savedCart = sessionStorage.getItem('cartItems');
+            if (savedCart) {
+                cartItems = JSON.parse(savedCart);
+            }
+        }
+    </script>
+</body>
+</html>
