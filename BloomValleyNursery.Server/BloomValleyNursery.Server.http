@@ -1,0 +1,6 @@
+@BloomValleyNursery.Server_HostAddress = http://localhost:5029
+
+GET {{BloomValleyNursery.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
