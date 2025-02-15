@@ -130,14 +130,20 @@
 
         // Clear cart
         document.getElementById('clear-cart').onclick = function () {
+            if (cartItems.length === 0) {
+                alert('No items to clear!');
+            } else {
             cartItems = [];
             sessionStorage.removeItem('cartItems');
-            displayCartItems();
-            alert('Cart is cleared!');
+                alert('Cart is cleared!')
         }
+        };
 
         // Process order
         document.getElementById('process-order').onclick = function () {
+            if (cartItems.length === 0) {
+                alert('Cart is empty!');
+            } else {
             cartItems = [];
             sessionStorage.removeItem('cartItems');
             modal.style.display = 'none';
