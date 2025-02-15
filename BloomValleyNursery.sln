@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloomValleyNursery.Server", "BloomValleyNursery.Server\BloomValleyNursery.Server.csproj", "{57429B3B-86B0-44B9-9815-CA873B81192A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BloomValleyNursery.Server", "BloomValleyNursery.Server\BloomValleyNursery.Server.csproj", "{57429B3B-86B0-44B9-9815-CA873B81192A}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "bloomvalleynursery.client", "bloomvalleynursery.client\bloomvalleynursery.client.esproj", "{5FCD8B19-6A60-40FC-9503-0E564B10D839}"
 EndProject
