@@ -73,12 +73,6 @@ if (contactForm) {
         const feedback = contactForm.querySelector('#message').value;
         const phone = contactForm.querySelector('#phone').value;
 
-        // Single validation check
-        if (!name || !email || !feedback) {
-            alert('Please enter your name, email, and feedback.');
-            return;
-        }
-
         const formData = {
             name: name,
             email: email,
@@ -89,9 +83,5 @@ if (contactForm) {
 
         // Store in localStorage
         localStorage.setItem(name, JSON.stringify(formData));
-
-        // Single success message
-        alert(`Thank you for your message, ${name}!`);
-        contactForm.reset();
     });
 }
