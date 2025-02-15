@@ -6,6 +6,7 @@
     <title>Bloom Valley Nursery - Gallery</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
     <!-- Header Section -->
@@ -70,8 +71,10 @@
     <footer>
         <div class="newsletter">
             <h3>Sign up for our Newsletter</h3>
-            <input type="email" placeholder="Your email">
-            <button type="submit">Subscribe</button>
+            <form id="subscribe-form">
+                <input type="email" placeholder="Your email" required>
+                <button id="subscribe-btn" type="submit">Subscribe</button>
+            </form>
         </div>
         <div class="social-links">
             <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
@@ -91,7 +94,7 @@
 
     <script>
         // Shopping cart functionality
-        let cartItems = [];
+        let cartItems = JSON.parse(sessionStorage.getItem('cartItems')) || [];
 
         // Add to cart
         document.querySelectorAll('.add-to-cart').forEach(button => {
@@ -100,6 +103,7 @@
                 cartItems.push(item);
                 sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
                 alert('Item added to cart!');
+                updateCartDisplay();
             });
         });
 
@@ -109,7 +113,7 @@
         const closeBtn = document.querySelector('.close');
 
         viewCartBtn.onclick = function () {
-            displayCartItems();
+            updateCartDisplay();
             modal.style.display = 'block';
         }
 
@@ -117,8 +121,8 @@
             modal.style.display = 'none';
         }
 
-        // Display cart items
-        function displayCartItems() {
+        // Update cart display
+        function updateCartDisplay() {
             const cartDisplay = document.getElementById('cart-items');
             cartDisplay.innerHTML = '';
             cartItems.forEach(item => {
@@ -133,10 +137,11 @@
             if (cartItems.length === 0) {
                 alert('No items to clear!');
             } else {
-            cartItems = [];
-            sessionStorage.removeItem('cartItems');
-                alert('Cart is cleared!')
-        }
+                cartItems = [];
+                sessionStorage.removeItem('cartItems');
+                alert('Cart is cleared!');
+                updateCartDisplay();
+            }
         };
 
         // Process order
@@ -144,18 +149,17 @@
             if (cartItems.length === 0) {
                 alert('Cart is empty!');
             } else {
-            cartItems = [];
-            sessionStorage.removeItem('cartItems');
-            modal.style.display = 'none';
-            alert('Thank you for your order!');
+                cartItems = [];
+                sessionStorage.removeItem('cartItems');
+                modal.style.display = 'none';
+                alert('Thank you for your order!');
+                updateCartDisplay();
+            }
         }
 
-        // Load cart from session storage
+        // Load cart from session storage on page load
         window.onload = function () {
-            const savedCart = sessionStorage.getItem('cartItems');
-            if (savedCart) {
-                cartItems = JSON.parse(savedCart);
-            }
+            updateCartDisplay();
         }
     </script>
 </body>
