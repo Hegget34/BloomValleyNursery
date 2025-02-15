@@ -6,6 +6,7 @@
     <title>Bloom Valley Nursery - About Us</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
     <!-- Header Section -->
@@ -73,10 +74,10 @@
                 </div>
 
                 <div class="form-group">
-                    <label>
+                    <div class="checkbox-wrapper">
                         <input type="checkbox" id="custom-order" name="custom-order">
-                        Custom Order
-                    </label>
+                        <label for="custom-order">Custom Order</label>
+                    </div>
                 </div>
 
                 <div class="form-buttons">
@@ -91,8 +92,10 @@
     <footer>
         <div class="newsletter">
             <h3>Sign up for our Newsletter</h3>
-            <input type="email" placeholder="Your email">
-            <button type="submit">Subscribe</button>
+            <form id="subscribe-form">
+                <input type="email" placeholder="Your email" required>
+                <button id="subscribe-btn" type="submit">Subscribe</button>
+            </form>
         </div>
         <div class="social-links">
             <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
@@ -115,19 +118,32 @@
         document.getElementById('contact-form').addEventListener('submit', function (e) {
             e.preventDefault();
 
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
             const formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
+                name: name,
+                email: email,
                 phone: document.getElementById('phone').value,
-                message: document.getElementById('message').value,
-                customOrder: document.getElementById('custom-order').checked
+                message: message,
+                customOrder: document.getElementById('custom-order').checked,
+                timestamp: new Date().toISOString()
             };
 
-            // Store in localStorage
-            localStorage.setItem(formData.name, JSON.stringify(formData));
+            // Store in localStorage with unique key
+            localStorage.setItem(`order_${Date.now()}`, JSON.stringify(formData));
 
             alert(`Thank you for your message, ${formData.name}!`);
             this.reset();
         });
+
+        // Clear form button
+        document.querySelector('button[type="reset"]').addEventListener('click', function () {
+            if (confirm('Are you sure you want to clear the form?')) {
+                document.getElementById('contact-form').reset();
+            }
+        });
     </script>
 </body>
+</html>

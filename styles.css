@@ -181,3 +181,30 @@ th {
     padding-left: 1rem;
     margin-bottom: 1.5rem;
 }
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 1rem;
+}
+
+    .checkbox-container input[type="checkbox"] {
+        margin: 0;
+    }
+
+.checkbox-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+
+    .checkbox-wrapper input[type="checkbox"] {
+        width: auto;
+        margin: 0;
+    }
+
+    .checkbox-wrapper label {
+        margin: 0;
+    }
